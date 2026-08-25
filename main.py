@@ -1,4 +1,18 @@
 import pandas as pd
+from app.analytics import (
+    calculate_gross_revenue,
+    calculate_total_revenue,
+    calculate_total_quantity,
+    calculate_total_number_of_transactions,
+    calculate_transactions_by_category,
+    calculate_revenue_by_category,
+    calculate_top_5_categories_per_revenue,
+    calculate_quantity_sold_by_category,
+    calculate_average_transaction_value,
+    calculate_revenue_by_region,
+    calculate_revenue_by_year,
+    calculate_revenue_by_month
+)
 df=pd.read_csv("data/sales_data.csv")
 #CHECKING TYPES ------------------------------------------------------------------------------
 print(df.head())
@@ -22,33 +36,46 @@ print("duplicated rows:")
 print(df[df.duplicated()])
 df=df.drop_duplicates()
 #ANALYTICS -------------------------------------------------------------------------
-df["Gross_revenue"]=df["Quantity_Sold"]*df["Unit_Price"]    #revenue by transactionbut no discounts into consideration 
-print(df["Gross_revenue"].head()) 
-Total_revenue=df["Sales_Amount"].sum()                      #calculation total revenue (wth discount if exists)
-print("Total_revenue:",Total_revenue)
-Total_quantity=df["Quantity_Sold"].sum()                    #calculation of total quantity for all categs
-print('Total_quantity:',Total_quantity)
-Total_transactions=len(df.index)                            #counting total number of transactions
-print("total transactions:",Total_transactions)
-categs=df["Product_Category"].value_counts()                #number of transactions for each category
+        #revenue by transaction but no discounts into consideration
+df["gross_revenue"]=calculate_gross_revenue(df)    
+print(df["gross_revenue"].head()) 
+      #calculation of total revenue with discounts if exists
+total_revenue=calculate_total_revenue(df)                    
+print("Total_revenue:",total_revenue)
+        #calculation of total quantity for all categs
+total_quantity=calculate_total_quantity(df)                  
+print('Total_quantity:',total_quantity)
+  #counting total number of transactions
+total_transactions=calculate_total_number_of_transactions(df)                           
+print("total transactions:",total_transactions)
+      #number of transactions for each category
+transactions_per_categ=calculate_transactions_by_category(df)              
 print("transaction per category:")
-print(categs)
-Revenue_by_category=df.groupby("Product_Category")["Sales_Amount"].sum() #revenue by category
+print(transactions_per_categ)
+          #revenue by category
+revenue_by_category=calculate_revenue_by_category(df) 
 print("Revenue by category:")
-print(Revenue_by_category)
-print("top 5 products by revenue:")                          #top 5 products per revenue
-Top_5_categories=Revenue_by_category.nlargest(5,keep='all')
-print(Top_5_categories)
-Quantity_sold_by_category=df.groupby("Product_Category")["Quantity_Sold"].sum() #quantity sold by category
+print(revenue_by_category)
+  #top 5 categories per revenue
+top_5_categories=calculate_top_5_categories_per_revenue(df)
+print("top 5 categories by revenue:")                          
+print(top_5_categories)
+   #quantity sold by category
+quantity_sold_by_category=calculate_quantity_sold_by_category(df) 
 print("Quantity sold by category:")
-print(Quantity_sold_by_category)
-Average_trans_val=Total_revenue/Total_transactions            #average transaction value
-print("Average transaction value:",Average_trans_val)
-Revenue_by_region=df.groupby("Region")["Sales_Amount"].sum()                                                            # revenue by region
-print("revenue by region:",Revenue_by_region)
-Revenue_by_year=df.groupby(df["Sale_Date"].dt.year)["Sales_Amount"].sum() #revenue by year
+print(quantity_sold_by_category)
+    #average transaction value
+average_trans_val=calculate_average_transaction_value(df)           
+print("Average transaction value:",average_trans_val)
+            #revenue by region
+revenue_by_region=calculate_revenue_by_region(df)                                                           
+print("revenue by region:")
+print(revenue_by_region)
+            #revenue by year
+revenue_by_year=calculate_revenue_by_year(df) 
 print("revenue by year:")
-print(Revenue_by_year)
-Revenue_by_month=df.groupby(df["Sale_Date"].dt.to_period("M"))["Sales_Amount"].sum() #revenue by month
+print(revenue_by_year)
+          #revenue by month
+revenue_by_month=calculate_revenue_by_month(df) 
 print("revenue by month:")
-print(Revenue_by_month)
+print(revenue_by_month)
