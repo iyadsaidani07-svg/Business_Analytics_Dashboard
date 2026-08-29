@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,UploadFile,File
 import pandas as pd
 from analytics import (
     calculate_gross_revenue,
@@ -14,6 +14,9 @@ from analytics import (
     calculate_revenue_by_year,
     calculate_revenue_by_month
 )
+from validation import validation
+from cleaning import (no_negatives_in_numerical_columns,handling_duplicates,handling_missing_values)
+from mapping import column_mapping
 app=FastAPI()
 @app.get("/")
 def read_root():
@@ -73,3 +76,62 @@ def data_by_month_calculated():
     revenue_by_month=calculate_revenue_by_month(df)
     revenue_by_month.index=revenue_by_month.index.astype(str)
     return {"revenue_by_month":revenue_by_month.to_dict()} 
+@app.post("/upload")
+def user_uploaded_file(file:UploadFile=File(...)):
+    if file.filename.endswith(('.xlsx', '.xls')):
+        df = pd.read_excel(file.file) 
+    elif file.filename.endswith(('.csv')):
+        df=pd.read_csv(file.file)
+    else:
+        return {"error": "Unsupported file type. Please upload a CSV or Excel file."}  
+    df=column_mapping(df)                           #mapping    
+    validation_result=validation(df)                #validation
+    if validation_result["valid"] == True:  
+                                                    #cleaning
+        df=no_negatives_in_numerical_columns(df)    
+        df=handling_missing_values(df)
+        df=handling_duplicates(df)
+                                                    #analytics
+        gross_revenue=calculate_gross_revenue(df)
+        total_revenue=calculate_total_revenue(df)                    
+        total_quantity=calculate_total_quantity(df)                  
+        total_transactions=calculate_total_number_of_transactions(df)   
+        average_trans_val=calculate_average_transaction_value(df) 
+        transactions_per_categ=calculate_transactions_by_category(df)
+        revenue_by_category=calculate_revenue_by_category(df) 
+        top_5_categories=calculate_top_5_categories_per_revenue(df)
+        quantity_sold_by_category=calculate_quantity_sold_by_category(df)
+        revenue_by_region=calculate_revenue_by_region(df)   
+        revenue_by_year=calculate_revenue_by_year(df)       
+        revenue_by_month=calculate_revenue_by_month(df)
+        revenue_by_month.index=revenue_by_month.index.astype(str)   
+        return {
+        "filename": file.filename,
+
+        "data_info": {
+        "rows": len(df.index),
+        "columns": df.shape[1]
+        },
+
+        "validation": validation_result,
+
+        "analytics": {
+        "total_revenue": float(total_revenue),
+        "total_quantity": int(total_quantity),
+        "total_transactions": int(total_transactions),
+        "average_transaction_value": float(average_trans_val),
+        "gross_revenue":float(gross_revenue),
+        "transactions_per_category": transactions_per_categ.to_dict(),
+        "revenue_by_category": revenue_by_category.to_dict(),
+        "top_5_categories": top_5_categories.to_dict(),
+        "quantity_sold_by_category": quantity_sold_by_category.to_dict(),
+        "revenue_by_region": revenue_by_region.to_dict(),
+        "revenue_by_year": revenue_by_year.to_dict(),
+        "revenue_by_month": revenue_by_month.to_dict()}
+        }                                  
+    else :
+        return {
+    "filename": file.filename,
+    "data_info": {"rows": len(df.index),"columns": df.shape[1]},
+    "validation": validation_result,
+    "analytics": None}

@@ -1,6 +1,6 @@
 import pandas as pd
 def calculate_gross_revenue(df):                                #revenue by transaction but no discounts into consideration                                      
-   return df["Quantity_Sold"]*df["Unit_Price"]    
+   return (df["Quantity_Sold"]*df["Unit_Price"]).sum()    
 def calculate_total_revenue(df):                                #calculation total revenue (wth discount if exists)
    return df["Sales_Amount"].sum()                     
 def calculate_total_quantity(df):                    #calculation of total quantity for all categs 
