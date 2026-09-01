@@ -1,0 +1,4 @@
+Quantity_Sold,Unit_Price,Sales_Amount,Product_Category,Region,Sale_Date
+10,20,200,Electronics,North,2024-01-01
+"15",30,450,Clothing,South,2024-01-02
+"bad",25,625,Food,East,2024-01-03
