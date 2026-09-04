@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Business Analytics Dashboard</title>
+</head>
+
+<body>
+    <header>
+        <h1>Business Analytics Dashboard</h1>
+        <p>Upload your sales dataset and explore your business performance.</p>
+    </header>
+    <section id="upload-section">
+            <h2>Upload Dataset</h2>
+
+            <input type="file" id="file-input" class="file-input" accept=".csv,.xlsx,.xls">
+            <button id="upload-button" class="upload-button">Upload</button>
+
+            <p id="upload-status"></p>
+     </section>
+     <section id="overview-section">
+            <h2>Overview</h2>
+
+            <div class="metrics">
+
+                <div class="metric-card">
+                    <h3>Total Revenue</h3>
+                    <p id="total-revenue">-</p>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Total Transactions</h3>
+                    <p id="total-transactions">-</p>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Total Quantity</h3>
+                    <p id="total-quantity">-</p>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Average Transaction</h3>
+                    <p id="average-transaction">-</p>
+                </div>
+                 
+                <div class="metric-card">
+                    <h3>Gross Revenue</h3>
+                    <p id="gross-revenue">-</p>
+                </div>
+
+            </div>
+       </section>
+       <section id="analytics-section">
+            <h2>Analytics</h2>
+
+            <div id="charts-container">
+                <canvas id="revenue-category-chart"></canvas>
+                <canvas id="transactions-category-chart"></canvas>
+                <canvas id="top-categories-chart"></canvas>
+                <canvas id="quantity-category-chart"></canvas>
+                <canvas id="revenue-region-chart"></canvas>
+                <canvas id="revenue-year-chart"></canvas>
+                <canvas id="revenue-month-chart"></canvas>
+            </div>
+
+       </section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

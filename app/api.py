@@ -1,10 +1,12 @@
 from fastapi import FastAPI,UploadFile,File,HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 from app.analytics import run_analytics
 from app.validation import validation
 from app.cleaning import clean_data
 from app.mapping import column_mapping
 app=FastAPI()
+app.add_middleware(CORSMiddleware,allow_origins=["*"],allow_headers=["*"],allow_methods=["*"])
 @app.get("/")
 def read_root():
     return {"message":"Business analytics API"}
