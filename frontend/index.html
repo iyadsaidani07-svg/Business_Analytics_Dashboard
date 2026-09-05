@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <title>Business Analytics Dashboard</title>
 </head>
@@ -54,15 +55,35 @@
        <section id="analytics-section">
             <h2>Analytics</h2>
 
-            <div id="charts-container">
-                <canvas id="revenue-category-chart"></canvas>
-                <canvas id="transactions-category-chart"></canvas>
-                <canvas id="top-categories-chart"></canvas>
-                <canvas id="quantity-category-chart"></canvas>
-                <canvas id="revenue-region-chart"></canvas>
-                <canvas id="revenue-year-chart"></canvas>
-                <canvas id="revenue-month-chart"></canvas>
-            </div>
+            <div id="charts-container" class="charts-grid">
+        <div class="chart-card">
+            <canvas id="revenue-category-chart"></canvas>
+        </div>
+
+        <div class="chart-card">
+            <canvas id="transactions-category-chart"></canvas>
+        </div>
+
+          <div class="chart-card">
+            <canvas id="top-categories-chart"></canvas>
+          </div>
+
+          <div class="chart-card">
+            <canvas id="quantity-category-chart"></canvas>
+          </div>
+
+          <div class="chart-card">
+            <canvas id="revenue-region-chart"></canvas>
+          </div>
+
+          <div class="chart-card">
+            <canvas id="revenue-year-chart"></canvas>
+          </div>
+ 
+          <div class="chart-card chart-card-center">
+            <canvas id="revenue-month-chart"></canvas>
+          </div>
+              </div>
 
        </section>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
