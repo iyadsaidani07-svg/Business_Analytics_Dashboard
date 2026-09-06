@@ -1,15 +1,15 @@
 from fastapi import FastAPI,UploadFile,File,HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 import pandas as pd
 from app.analytics import run_analytics
 from app.validation import validation
 from app.cleaning import clean_data
 from app.mapping import column_mapping
 app=FastAPI()
+BASE_DIR = Path(__file__).resolve().parent.parent
 app.add_middleware(CORSMiddleware,allow_origins=["*"],allow_headers=["*"],allow_methods=["*"])
-@app.get("/")
-def read_root():
-    return {"message":"Business analytics API"}
 @app.get("/health")
 def health_check():
     return {"status":"ok"}
@@ -26,7 +26,7 @@ def user_uploaded_file(file:UploadFile=File(...)):
         raise    
     except Exception:
         raise HTTPException(status_code=400,detail="The file could not be read.")
-    df=column_mapping(df)                           #mapping    
+    df=column_mapping(df)                           #mapping
     validation_result=validation(df)                #validation
     if validation_result["valid"] :  
                                                     #cleaning
@@ -47,3 +47,4 @@ def user_uploaded_file(file:UploadFile=File(...)):
     "data_info": {"rows": len(df.index),"columns": df.shape[1]},
     "validation": validation_result,
     "analytics": None}
+app.mount("/", StaticFiles(directory=BASE_DIR / "frontend", html=True), name="frontend")

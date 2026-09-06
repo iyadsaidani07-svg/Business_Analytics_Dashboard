@@ -82,8 +82,6 @@ def column_mapping(df):
         "Sale Price": "Unit_Price",
         "Sale_Price": "Unit_Price",
 
-        "Unit Cost": "Unit_Price",
-        "Unit_Cost": "Unit_Price",
 
         "Product Price": "Unit_Price",
         "Product_Price": "Unit_Price",
