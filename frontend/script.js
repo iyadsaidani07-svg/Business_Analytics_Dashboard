@@ -5,11 +5,19 @@ const totalTransactions = document.getElementById("total-transactions");
 const totalQuantity = document.getElementById("total-quantity");
 const averageTransaction = document.getElementById("average-transaction");
 const grossRevenue=document.getElementById("gross-revenue")
+let revenueCategoryChartInstance;
+let transactionsCategoryChartInstance;
+let topCategoriesChartInstance;
+let quantityCategoryChartInstance;
+let revenueRegionChartInstance;
+let revenueYearChartInstance;
+let revenueMonthChartInstance;
+//CHARTS FUNCTIONS PART
 const revenueCategoryChart = document.getElementById("revenue-category-chart");
 function createRevenueCategoryChart(data) {
     const categories = Object.keys(data.analytics.revenue_by_category);
     const revenues = Object.values(data.analytics.revenue_by_category);
-    new Chart(revenueCategoryChart, {
+    revenueCategoryChartInstance=new Chart(revenueCategoryChart, {
         type: "bar",
         data: {
             labels: categories,
@@ -28,7 +36,7 @@ const transactionsCategoryChart = document.getElementById("transactions-category
 function createTransactionsCategoryChart(data) {
     const categories = Object.keys(data.analytics.transactions_per_category);
     const transactions = Object.values(data.analytics.transactions_per_category);
-    new Chart(transactionsCategoryChart, {
+    transactionsCategoryChartInstance=new Chart(transactionsCategoryChart, {
         type: "bar",
         data: {
             labels: categories,
@@ -47,7 +55,7 @@ const topCategoriesChart = document.getElementById("top-categories-chart");
 function createTopCategoriesChart(data) {
     const categories = Object.keys(data.analytics.top_5_categories);
     const revenues = Object.values(data.analytics.top_5_categories);
-    new Chart(topCategoriesChart, {
+    topCategoriesChartInstance=new Chart(topCategoriesChart, {
         type: "bar",
         data: {
             labels: categories,
@@ -65,8 +73,7 @@ const quantityCategoryChart = document.getElementById("quantity-category-chart")
 function createQuantityCategoryChart(data) {
     const categories = Object.keys(data.analytics.quantity_sold_by_category);
     const quantities = Object.values(data.analytics.quantity_sold_by_category);
-
-    new Chart(quantityCategoryChart, {
+    quantityCategoryChartInstance=new Chart(quantityCategoryChart, {
         type: "bar",
         data: {
             labels: categories,
@@ -84,7 +91,7 @@ const revenueRegionChart = document.getElementById("revenue-region-chart");
 function createRevenueRegionChart(data) {
     const regions = Object.keys(data.analytics.revenue_by_region);
     const revenues = Object.values(data.analytics.revenue_by_region);
-    new Chart(revenueRegionChart, {
+    revenueRegionChartInstance=new Chart(revenueRegionChart, {
         type: "bar",
         data: {
             labels: regions,
@@ -102,7 +109,7 @@ const revenueYearChart = document.getElementById("revenue-year-chart");
 function createRevenueYearChart(data) {
     const years = Object.keys(data.analytics.revenue_by_year);
     const revenues = Object.values(data.analytics.revenue_by_year);
-    new Chart(revenueYearChart, {
+    revenueYearChartInstance=new Chart(revenueYearChart, {
         type: "line",
         data: {
             labels: years,
@@ -120,7 +127,7 @@ const revenueMonthChart = document.getElementById("revenue-month-chart");
 function createRevenueMonthChart(data) {
     const months = Object.keys(data.analytics.revenue_by_month);
     const revenues = Object.values(data.analytics.revenue_by_month);
-    new Chart(revenueMonthChart, {
+    revenueMonthChartInstance=new Chart(revenueMonthChart, {
         type: "line",
         data: {
             labels: months,
@@ -158,6 +165,13 @@ uploadButton.addEventListener("click", async function() {
     totalQuantity.textContent = data.analytics.total_quantity;
     averageTransaction.textContent = data.analytics.average_transaction_value;
     grossRevenue.textContent=data.analytics.gross_revenue;
+    if (revenueCategoryChartInstance) revenueCategoryChartInstance.destroy();
+    if (transactionsCategoryChartInstance) transactionsCategoryChartInstance.destroy();
+    if (topCategoriesChartInstance) topCategoriesChartInstance.destroy();
+    if (quantityCategoryChartInstance) quantityCategoryChartInstance.destroy();
+    if (revenueRegionChartInstance) revenueRegionChartInstance.destroy();
+    if (revenueYearChartInstance) revenueYearChartInstance.destroy();
+    if (revenueMonthChartInstance) revenueMonthChartInstance.destroy();
     createRevenueCategoryChart(data);
     createTransactionsCategoryChart(data);
     createTopCategoriesChart(data);
