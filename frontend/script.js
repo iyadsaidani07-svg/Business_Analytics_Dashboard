@@ -1,3 +1,4 @@
+console.log("THIS IS THE NEW SCRIPT");
 const uploadButton = document.getElementById("upload-button");
 const fileInput = document.getElementById("file-input");
 const totalRevenue = document.getElementById("total-revenue");
