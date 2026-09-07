@@ -4,7 +4,11 @@
 
 A Python and FastAPI application that allows users to upload sales datasets in CSV or Excel format and automatically performs data validation, cleaning, and business analytics.
 
+## Live Demo
 
+The deployed application is available here:
+
+https://business-analytics-dashboard-zdtd.onrender.com/
 
 ## Features
 
@@ -323,4 +327,4 @@ The tests cover:
 The backend provides a complete basic pipeline for uploading sales datasets, validating and cleaning the data, and generating business analytics through a FastAPI API.
 
 
-
+The project is deployed and available through the live demo above.
