@@ -167,7 +167,8 @@ uploadButton.addEventListener("click", async function() {
     revenueYearChart,
     revenueMonthChart
 ];
-charts.forEach(function(canvas) {
+    console.log("ABOUT TO DESTROY OLD CHARTS");
+    charts.forEach(function(canvas) {
     const chart = Chart.getChart(canvas);
     console.log("Existing chart:", chart);
     if (chart) {
