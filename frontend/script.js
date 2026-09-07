@@ -169,7 +169,7 @@ uploadButton.addEventListener("click", async function() {
 ];
 charts.forEach(function(canvas) {
     const chart = Chart.getChart(canvas);
-
+    console.log("Existing chart:", chart);
     if (chart) {
         chart.destroy();
     }
