@@ -212,17 +212,17 @@ The application expects the following standardized columns:
 
 
 
-* `Quantity\_Sold`
+* `Quantity_Sold`
 
-* `Unit\_Price`
+* `Unit_Price`
 
-* `Sales\_Amount`
+* `Sales_Amount`
 
-* `Product\_Category`
+* `Product_Category`
 
 * `Region`
 
-* `Sale\_Date`
+* `Sale_Date`
 
 
 
