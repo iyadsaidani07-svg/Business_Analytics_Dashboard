@@ -44,40 +44,29 @@ https://business-analytics-dashboard-zdtd.onrender.com/
 
 ```text
 
-business\_analytics\_dashboard/
+business_analytics_dashboard/
 
 ├── app/
-
-│   ├── \_\_init\_\_.py
-
+│   ├── __init__.py
 │   ├── api.py
-
 │   ├── analytics.py
-
 │   ├── cleaning.py
-
 │   ├── mapping.py
-
 │   └── validation.py
-
 │
-
 ├── data/
-
-│   └── sales\_data.csv
-
+│   └── sales_data.csv
 │
-
+├── frontend/
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
+│
 ├── tests/
-
-│   └── test\_api.py
-
+│   └── test_api.py
 │
-
 ├── README.md
-
 ├── requirements.txt
-
 └── pytest.ini
 
 ```
