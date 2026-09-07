@@ -84,6 +84,7 @@ margin-right: 10px
      .chart-card-center {
         grid-column: 1;
         width: auto;
+        box-sizing: border-box;
     }
     .metrics {
     flex-direction: column;
