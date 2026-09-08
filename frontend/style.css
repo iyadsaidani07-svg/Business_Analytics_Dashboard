@@ -83,7 +83,7 @@ margin-right: 10px
     }
      .chart-card-center {
         grid-column: 1;
-        width: auto;
+        width: 100%;
         box-sizing: border-box;
     }
     .metrics {
